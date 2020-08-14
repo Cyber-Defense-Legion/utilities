@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+#
+# This script takes in a filename via a command-line
+# argument and decrypts the file by calling the OpenSSL
+# command-line utility. The decryption parameters depend on
+# the original encryption parameters, so this file is very
+# much dependent on its sister file 'encrypt-file' to be
+# of much use.
+
+# Make sure a filename argument was actually passed in.
+if [[ $# -eq 0 ]]
+then
+    # Since no arguments were passed in, print a help
+    # message to standard error.
+    echo "Usage: decrypt-file <Filename> [<Filename> ...]" >&2
+
+    # Exit with an error status code.
+    exit 1
+fi
+
+# Iterate through the parameter list and decrypt each file
+# individually.
+for FILENAME in $@
+do
+    # Call the OpenSSL command-line utility to actually do
+    # the decryption, but remember to first get the base64
+    # utility to decode the file.
+    base64 --decode $FILENAME > $FILENAME.bin && openssl enc -aes-256-cbc -d -iter 1000 -in $FILENAME.bin | tee $FILENAME.dec
+done

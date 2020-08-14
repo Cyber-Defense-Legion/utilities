@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+#
+# This script takes in a filename via a command-line
+# argument and encrypts the file by calling the OpenSSL
+# command-line utility with some sane default settings.
+
+# Make sure a filename argument was actually passed in.
+if [[ $# -eq 0 ]]
+then
+    # Since no arguments were passed in, print a help
+    # message to standard error.
+    echo "Usage: encrypt-file <Filename> [<Filename> ...]" >&2
+
+    # Exit with an error status code.
+    exit 1
+fi
+
+# Iterate through the parameter list and encrypt each file
+# individually.
+for FILENAME in $@
+do
+    # Call the OpenSSL command-line utility to actually do
+    # the encryption.
+    openssl enc -aes-256-cbc -e -iter 1000 -salt -in $FILENAME | base64 | tee $FILENAME.enc
+done
