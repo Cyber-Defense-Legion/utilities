@@ -30,7 +30,7 @@ to the `encrypt-file` script. The script will request (and
 re-request, for confirmation) a password from you.
 ```bash
  $ ./encrypt-file test-file.txt
-enter aes-256-cbc encryption password:
+enter aes-256-ctr encryption password:
 ```
 After confirming the encryption password, the file is encrypted
 and written out to a `.enc` file and piped to standard output
@@ -53,7 +53,7 @@ Decryption is analogous to encryption; simply call the
 argument.
 ```bash
  $ ./decrypt-file test-file.txt.enc
-enter aes-256-cbc encryption password:
+enter aes-256-ctr encryption password:
 ```
 Just as before, type in the encryption password.
 

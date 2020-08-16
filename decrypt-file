@@ -25,5 +25,5 @@ do
     # Call the OpenSSL command-line utility to actually do
     # the decryption, but remember to first get the base64
     # utility to decode the file.
-    base64 --decode $FILENAME > $FILENAME.bin && openssl enc -aes-256-cbc -d -iter 1000 -in $FILENAME.bin | tee $FILENAME.dec
+    base64 --decode $FILENAME > $FILENAME.bin && openssl enc -aes-256-ctr -d -iter 1000 -in $FILENAME.bin | tee $FILENAME.dec
 done
